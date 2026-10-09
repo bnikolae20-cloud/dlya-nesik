@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#180f24">
+<meta name="description" content="Маленькая история для Инессы — потому что некоторые люди делают мир теплее.">
+<title>Для тебя, Несик ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;background:#160f24;color:#fff3e9;
+ font-family:Georgia,"Times New Roman",serif;
+ overflow-x:hidden
+}
+button{font:inherit;cursor:pointer}
+.hero{
+ min-height:100vh;min-height:100svh;position:relative;
+ display:flex;align-items:center;justify-content:center;
+ text-align:center;padding:35px 22px;overflow:hidden;
+ background:
+ linear-gradient(180deg,#160f2430,#160f24 100%),
+ radial-gradient(ellipse at 72% 35%,#ffcf91 0%,#f16d83 15%,#79436d 38%,transparent 65%),
+ linear-gradient(160deg,#29305a,#74446d 40%,#e57978 65%,#25182f)
+}
+.hero:after{
+ content:"";position:absolute;bottom:0;left:-10%;width:120%;
+ height:25%;background:linear-gradient(0deg,#160f24,#160f2400);
+ pointer-events:none
+}
+.sun{
+ position:absolute;width:clamp(120px,24vw,250px);aspect-ratio:1;
+ border-radius:50%;right:15%;top:19%;
+ background:linear-gradient(#ffe0b1,#ff927e);
+ box-shadow:0 0 80px #ffb17d66;opacity:.9
+}
+.hero-content{max-width:760px;position:relative;z-index:1}
+.eyebrow,.kicker{
+ font:12px/1.7 system-ui,sans-serif;
+ letter-spacing:.22em;text-transform:uppercase;color:#ffd4c8
+}
+h1{font-size:clamp(3.2rem,11vw,7rem);line-height:.98;font-weight:400;margin:25px 0}
+h1 em{color:#ffd0bc}
+.subtitle{font-size:clamp(1.05rem,3vw,1.35rem);line-height:1.8;max-width:570px;margin:0 auto 30px}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{
+ border:1px solid #ffb1b9;
+ background:linear-gradient(135deg,#ff8294,#d84e78);
+ color:white;border-radius:999px;padding:14px 23px;
+ box-shadow:0 8px 35px #d84e7840
+}
+.btn.secondary{background:#ffffff10;border-color:#ffffff55;box-shadow:none}
+.scroll-note{position:absolute;bottom:20px;z-index:2;font:11px system-ui,sans-serif;letter-spacing:.15em}
+.section{padding:85px 20px}
+.inner{max-width:900px;margin:auto}
+.kicker{text-align:center;color:#ff8294}
+h2{font-size:clamp(2rem,7vw,4rem);font-weight:400;line-height:1.15;text-align:center;margin:18px 0 25px}
+.intro{max-width:670px;text-align:center;margin:auto;color:#e8d9e0;font-size:1.1rem;line-height:1.9}
+.letter-wrap{
+ max-width:720px;margin:40px auto 0;padding:clamp(24px,6vw,50px);
+ border:1px solid #ffffff1d;border-radius:22px;
+ background:linear-gradient(145deg,#ffffff0c,#ffffff04);
+ box-shadow:0 25px 80px #0002
+}
+.letter{font-size:clamp(1.08rem,2.6vw,1.25rem);line-height:1.95;color:#fff0e8}
+.letter p{margin:0 0 18px}
+.signature{text-align:right;font-style:italic;color:#ffc0c5}
+.memory{background:radial-gradient(ellipse at 50% 0%,#59304b55,transparent 60%),#130d20}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:38px}
+.card{
+ min-height:190px;padding:25px 18px;border:1px solid #ffffff17;
+ border-radius:18px;background:#ffffff08;text-align:center;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px
+}
+.symbol{font-size:35px;color:#ff8294}
+.card h3{font-size:1.3rem;font-weight:400;margin:0}
+.card p{font:14px/1.8 system-ui,sans-serif;color:#d9cbd7;margin:0}
+.final{
+ min-height:65vh;display:flex;align-items:center;justify-content:center;
+ text-align:center;background:linear-gradient(180deg,#160f24,#38203c,#160f24)
+}
+.final p{font-size:1.1rem;line-height:1.9;color:#e7d8e4;max-width:600px;margin:0 auto 25px}
+.heart-button{
+ border:0;background:transparent;color:#ff8399;font-size:55px;
+ animation:pulse 1.6s infinite;filter:drop-shadow(0 0 18px #ff739955)
+}
+.secret{
+ display:none;max-width:580px;margin:20px auto 0;padding:22px;
+ border-radius:16px;background:#ffffff0b;border:1px solid #ffffff18;
+ line-height:1.9;font-size:1.1rem
+}
+.secret.show{display:block;animation:rise .7s ease}
+.footer{text-align:center;padding:25px 15px;color:#a997ad;font:12px system-ui,sans-serif}
+.music-toggle{
+ position:fixed;z-index:5;right:12px;top:12px;
+ background:#1b1026d9;color:#fff0e9;border:1px solid #ffffff38;
+ border-radius:999px;padding:11px 14px;backdrop-filter:blur(10px);
+ font:12px system-ui,sans-serif
+}
+.floating{
+ position:fixed;bottom:-40px;z-index:10;pointer-events:none;
+ animation:floatUp 5s linear forwards;color:#ff8ca0
+}
+.spark{
+ position:absolute;width:3px;height:3px;border-radius:50%;
+ background:#fff4db;box-shadow:0 0 9px #fff;
+ animation:twinkle 3s infinite alternate
+}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{50%{transform:scale(1.12)}}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(24deg);opacity:0}}
+@keyframes twinkle{to{opacity:.2;transform:scale(.5)}}
+@media(max-width:650px){
+ .cards{grid-template-columns:1fr}
+ .card{min-height:145px}
+ .section{padding:65px 18px}
+ .sun{right:5%;top:22%}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<button class="music-toggle" id="musicBtn">♫ <span id="musicLabel">Включить музыку</span></button>
+
+<header class="hero">
+ <div class="sun"></div>
+ <div id="stars"></div>
+ <div class="hero-content">
+  <div class="eyebrow">Маленькая история для особенного человека</div>
+  <h1>Для тебя,<br><em>Несик</em> ♡</h1>
+  <p class="subtitle">
+   Есть люди, рядом с которыми даже самый обычный день
+   становится немного похож на кино. Ты — именно такой человек.
+  </p>
+  <div class="actions">
+   <button class="btn" onclick="document.getElementById('letterSection').scrollIntoView({behavior:'smooth'})">
+    Открыть моё послание ↓
+   </button>
+   <button class="btn secondary" id="heartRain">Подарить сердечки ♡</button>
+  </div>
+ </div>
+ <div class="scroll-note">ПРОЛИСТАЙ НЕМНОГО НИЖЕ · ЭТО ДЛЯ ТЕБЯ</div>
+</header>
+
+<main>
+<section class="section" id="letterSection">
+ <div class="inner">
+  <div class="kicker">Несколько слов от сердца</div>
+  <h2>Инесса, это для тебя</h2>
+  <p class="intro">
+   Не каждый день встречаешь человека, которому хочется посвящать красивые моменты.
+   Поэтому я решил сохранить один такой момент здесь — только для тебя.
+  </p>
+
+  <div class="letter-wrap">
+   <div class="letter">
+    <p>Привет, моя дорогая Инесса… ❤️</p>
+    <p>Я не знаю, можно ли словами передать всё хорошее, что человек способен вызвать в душе. Но иногда хочется хотя бы попробовать.</p>
+    <p>Пусть у тебя будет побольше поводов улыбаться, вечеров, которые хочется запомнить, и моментов, когда на душе спокойно и тепло.</p>
+    <p>А если однажды день окажется не самым лучшим — пусть ты вспомнишь, что в этом мире есть кто-то, кто захотел сделать для тебя что-то особенное, просто чтобы увидеть твою улыбку.</p>
+    <p>Этот маленький сайт — не про идеальные слова. Он про внимание, про тепло и про желание подарить тебе несколько приятных минут.</p>
+    <p class="signature">С теплом — для тебя, Несик ♡</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section memory">
+ <div class="inner">
+  <div class="kicker">Маленькие вещи, которые важны</div>
+  <h2>Если бы этот вечер был фильмом…</h2>
+  <p class="intro">
+   В нём обязательно был бы тёплый закат, любимая музыка
+   и человек, которому хочется сказать что-то хорошее.
+  </p>
+
+  <div class="cards">
+   <article class="card">
+    <div class="symbol">☼</div>
+    <h3>Тёплые моменты</h3>
+    <p>Пусть в твоей жизни будет больше дней, которые хочется прожить ещё раз.</p>
+   </article>
+   <article class="card">
+    <div class="symbol">♫</div>
+    <h3>Своя мелодия</h3>
+    <p>Пусть даже тихая музыка напоминает тебе о чём-то светлом и добром.</p>
+   </article>
+   <article class="card">
+    <div class="symbol">♡</div>
+    <h3>Искренние улыбки</h3>
+    <p>Пусть рядом будут люди, с которыми можно быть собой и смеяться от души.</p>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section final">
+ <div class="inner">
+  <div class="kicker">И напоследок…</div>
+  <h2>Для тебя всегда<br>найдётся тёплое слово</h2>
+  <p>Инесса, спасибо, что ты — это ты. Нажми на сердечко: там спрятано ещё одно маленькое послание.</p>
+  <button class="heart-button" id="secretBtn" aria-label="Открыть секретное послание">♥</button>
+  <div class="secret" id="secretMessage">
+   Несик, пусть сегодня у тебя будет хотя бы одна причина улыбнуться.
+   А если этой причины ещё нет — считай, что ты только что её нашла. ✨
+   <br><br>Береги свою улыбку. Она тебе очень идёт. ❤️
+  </div>
+ </div>
+</section>
+</main>
+
+<footer class="footer">
+ Сделано с теплом специально для Инессы · <span id="year"></span> ♡
+</footer>
+
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<55;i++){
+ const s=document.createElement('i');
+ s.className='spark';
+ s.style.left=Math.random()*100+'%';
+ s.style.top=Math.random()*65+'%';
+ s.style.animationDelay=Math.random()*3+'s';
+ s.style.opacity=.25+Math.random()*.7;
+ stars.appendChild(s);
+}
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function hearts(count=18){
+ for(let i=0;i<count;i++){
+  const h=document.createElement('span');
+  h.className='floating';
+  h.textContent=['♡','♥','❤','✧'][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+'%';
+  h.style.fontSize=(16+Math.random()*25)+'px';
+  h.style.animationDuration=(3.5+Math.random()*3)+'s';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+ }
+}
+
+document.getElementById('heartRain').addEventListener('click',()=>hearts(28));
+
+document.getElementById('secretBtn').addEventListener('click',()=>{
+ document.getElementById('secretMessage').classList.toggle('show');
+ hearts(14);
+});
+
+// Нежная мелодия создаётся в браузере.
+// Для запуска звука нужно нажать кнопку.
+let audioCtx=null,master=null,playing=false,timer=null,step=0;
+const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23,261.63,329.63,392,523.25,440,392,329.63,293.66];
+
+function playNote(freq,when,duration){
+ const o=audioCtx.createOscillator();
+ const g=audioCtx.createGain();
+ o.type='sine';
+ o.frequency.setValueAtTime(freq,when);
+ g.gain.setValueAtTime(.0001,when);
+ g.gain.exponentialRampToValueAtTime(.07,when+.08);
+ g.gain.exponentialRampToValueAtTime(.0001,when+duration);
+ o.connect(g);
+ g.connect(master);
+ o.start(when);
+ o.stop(when+duration+.03);
+}
+
+function melody(){
+ if(!playing)return;
+ const now=audioCtx.currentTime;
+ playNote(notes[step%notes.length],now,.8);
+ if(step%4===0)playNote(notes[(step+4)%notes.length]/2,now,.95);
+ step++;
+ timer=setTimeout(melody,650);
+}
+
+async function toggleMusic(){
+ const label=document.getElementById('musicLabel');
+
+ if(!playing){
+  try{
+   audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();
+   await audioCtx.resume();
+   master=audioCtx.createGain();
+   master.gain.value=.42;
+   master.connect(audioCtx.destination);
+   playing=true;
+   label.textContent='Выключить музыку';
+   melody();
+  }catch(e){
+   label.textContent='Музыка недоступна';
+  }
+ }else{
+  playing=false;
+  clearTimeout(timer);
+  if(master)master.gain.setTargetAtTime(.0001,audioCtx.currentTime,.08);
+  label.textContent='Включить музыку';
+  setTimeout(()=>{
+   if(!playing&&audioCtx){
+    audioCtx.close();
+    audioCtx=null;
+    master=null;
+   }
+  },500);
+ }
+}
+
+document.getElementById('musicBtn').addEventListener('click',toggleMusic);
+</script>
+
+</body>
+</html>
